@@ -5,119 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supsesd Win</title>
     <style>
-        :root {
-            --primary: #6c5ce7;
-            --bg: #f4f7f6;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #121212;
-        }
-
+        :root { --primary: #6c5ce7; --bg: #f4f7f6; }
+        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #121212; }
+        
         #splash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            color: white;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999; color: white;
         }
 
-        #app-content {
-            display: none;
-            max-width: 480px;
-            margin: 0 auto;
-            background: var(--bg);
-            min-height: 100vh;
-        }
-
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .card {
-            margin: 15px;
-            padding: 20px;
-            border-radius: 15px;
-            background: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .price-tag {
-            font-size: 32px;
-            color: #27ae60;
-            font-weight: 800;
-            text-align: center;
-            margin: 10px 0;
-        }
+        #app-content { display: none; max-width: 480px; margin: 0 auto; background: var(--bg); min-height: 100vh; }
+        header { background: var(--primary); color: white; padding: 20px; text-align: center; font-size: 22px; font-weight: bold; }
+        .card { margin: 15px; padding: 20px; border-radius: 15px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .price-tag { font-size: 32px; color: #27ae60; font-weight: 800; text-align: center; margin: 10px 0; }
 
         .btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: bold;
-            margin-top: 15px;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-            font-size: 16px;
-            position: relative;
-            transition: 0.3s;
+            display: flex; justify-content: center; align-items: center;
+            background: var(--primary); color: white; padding: 16px;
+            border-radius: 12px; font-weight: bold; margin-top: 15px;
+            border: none; width: 100%; cursor: pointer; font-size: 16px; transition: 0.3s;
         }
 
-        .btn:disabled {
-            background: #b2bec3;
-            cursor: not-allowed;
-        }
+        .btn:disabled { background: #b2bec3; cursor: not-allowed; }
 
-        /* Spinner inside button */
         .spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top: 3px solid #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
+            display: none; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin-left: 10px;
         }
 
-        .instruction-box {
-            background: #f0f3ff;
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 5px solid var(--primary);
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .task-image {
-            width: 100%;
-            border-radius: 12px;
-            margin-top: 15px;
-            display: block;
-        }
-
+        .task-image { width: 100%; border-radius: 12px; margin-top: 15px; border: 1px solid #ddd; min-height: 150px; background: #eee; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        #copy-toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #333; color: white; padding: 10px 20px; border-radius: 20px;
+            display: none; z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -138,71 +62,98 @@
         <div class="card">
             <h3 style="margin-top:0;">Complete Task</h3>
             
-            <button id="startBtn" class="btn" onclick="handleAction('startBtn', 'https://h5.toptdcloud.com/h5/index.html#/share_gamePage?uid=3173040&source=Wheel', 'Verifying...')">
+            <button id="startBtn" class="btn" onclick="handleStartTask()">
                 <span>START TASK NOW</span>
                 <div class="spinner"></div>
             </button>
 
-            <div class="instruction-box">
-                <strong>How to complete:</strong><br>
-                1. Click button and wait for verification.<br>
-                2. Use Invite Code: <b style="color:#d63031;">3173040</b><br>
-                3. Keep for 2 days to get 3,000 PKR.
+            <div style="background:#f0f3ff; padding:15px; border-radius:10px; border-left:5px solid var(--primary); margin-top:15px; font-size:14px;">
+                <strong>Instruction:</strong> Use Invite Code <b>3173040</b> and keep for 2 days.
             </div>
 
             <p style="margin-top:20px; font-weight:bold;">Verification Tutorial:</p>
             <a href="https://youtu.be/mH9VZay3RTA?si=7fTgKFKQ64GdrETh" target="_blank">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj7I1YfR4yv9wN_6mUv0N_0yX_2_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0/s1600/IMG_20260421_170229_885.jpg" 
-                     class="task-image" alt="Verification Guide">
+                     class="task-image" alt="How to verify" 
+                     onerror="this.src='https://via.placeholder.com/400x200?text=Watch+Verification+Video'">
             </a>
         </div>
 
         <div class="card" style="background:#fff9db; border: 1px solid #fab005;">
             <h3 style="margin-top:0;">Refer & Earn 🤝</h3>
-            <p>Get <b>1,500 PKR</b> for every successful invite.</p>
+            <p>Copy link and get <b>1,500 PKR</b> per invite.</p>
             
-            <button id="inviteBtn" class="btn" style="background:#f39c12;" onclick="handleAction('inviteBtn', 'https://play-on-hala.vercel.app/', 'Loading...')">
+            <button id="inviteBtn" class="btn" style="background:#f39c12;" onclick="handleInvite()">
                 <span>INVITE NOW</span>
                 <div class="spinner"></div>
             </button>
         </div>
     </div>
 
+    <div id="copy-toast">Link Copied to Clipboard!</div>
+
     <script>
-        // Splash screen timer
+        const INVITE_LINK = "https://play-on-hala.vercel.app/";
+        const TASK_LINK = "https://h5.toptdcloud.com/h5/index.html#/share_gamePage?uid=3173040&source=Wheel";
+
         window.addEventListener('load', () => {
+            // Check if task was already started previously
+            if (localStorage.getItem('taskStarted') === 'true') {
+                setButtonToVerifying();
+            }
+
             setTimeout(() => {
                 document.getElementById('splash').style.display = 'none';
                 document.getElementById('app-content').style.display = 'block';
             }, 2000);
         });
 
-        // Common handler for both buttons
-        function handleAction(btnId, url, loadingText) {
-            const btn = document.getElementById(btnId);
-            const textSpan = btn.querySelector('span');
-            const spinner = btn.querySelector('.spinner');
-            const originalText = textSpan.innerText;
-
-            // Start Loading State
+        function setButtonToVerifying() {
+            const btn = document.getElementById('startBtn');
+            btn.querySelector('span').innerText = "Verifying...";
             btn.disabled = true;
-            textSpan.innerText = loadingText;
+            btn.classList.add('verifying-mode');
+        }
+
+        function handleStartTask() {
+            const btn = document.getElementById('startBtn');
+            const spinner = btn.querySelector('.spinner');
+            
+            btn.disabled = true;
             spinner.style.display = 'block';
 
-            // Wait 5 seconds then open link
             setTimeout(() => {
-                window.open(url, "_blank");
-                
-                // If it's the start button, keep it as "Verifying"
-                // If it's the invite button, reset it after 1 second
-                if (btnId === 'inviteBtn') {
-                    setTimeout(() => {
-                        btn.disabled = false;
-                        textSpan.innerText = originalText;
-                        spinner.style.display = 'none';
-                    }, 1000);
-                }
+                window.open(TASK_LINK, "_blank");
+                localStorage.setItem('taskStarted', 'true'); // Save state
+                setButtonToVerifying();
+                spinner.style.display = 'none';
             }, 5000);
+        }
+
+        function handleInvite() {
+            const btn = document.getElementById('inviteBtn');
+            const spinner = btn.querySelector('.spinner');
+            const text = btn.querySelector('span');
+            
+            btn.disabled = true;
+            spinner.style.display = 'block';
+            text.innerText = "Generating...";
+
+            setTimeout(() => {
+                // Copy to clipboard
+                navigator.clipboard.writeText(INVITE_LINK).then(() => {
+                    showToast();
+                    btn.disabled = false;
+                    spinner.style.display = 'none';
+                    text.innerText = "INVITE NOW";
+                });
+            }, 5000);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('copy-toast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2000);
         }
     </script>
 </body>
