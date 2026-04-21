@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supsesd Win</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #00cec9;
+            --bg: #f9f9f9;
+            --text: #2d3436;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Splash Loading Screen */
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Main Content */
+        #app-content {
+            display: none;
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .card {
+            margin: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .price-tag {
+            font-size: 28px;
+            color: #27ae60;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .btn {
+            display: block;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .instruction-box {
+            background: #f0f3ff;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .task-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .task-image:hover { opacity: 0.9; }
+
+        .referral-section {
+            background: #fff3e0;
+            border: 1px dashed #ff9800;
+        }
+
+        .reward-badge {
+            background: #ff9800;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash">
+        <h1>Supsesd Win</h1>
+        <p>Loading your rewards...</p>
+        <div class="loader"></div>
+    </div>
+
+    <div id="app-content">
+        <header>Supsesd Win</header>
+
+        <div class="card">
+            <p style="margin:0; color:#666;">Available Reward Price</p>
+            <div class="price-tag">3,000 PKR</div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0;">Active Task</h3>
+            <p>Complete the task below to unlock your rewards.</p>
+            
+            <a href="https://h5.toptdcloud.com/h5/index.html#/share_gamePage?uid=3173040&source=Wheel" class="btn" target="_blank">
+                START TASK NOW
+            </a>
+
+            <div class="instruction-box">
+                <strong>Instructions:</strong><br>
+                1. Download the app via the link above.<br>
+                2. Use Invite Code: <b>3173040</b><br>
+                3. Use the app for at least 2 days to get your reward.
+            </div>
+
+            <p style="margin-top:20px; font-weight:bold;">Verification Guide:</p>
+            <a href="https://youtu.be/mH9VZay3RTA?si=7fTgKFKQ64GdrETh" target="_blank">
+                <img src="https://i.ibb.co/Vp8nS8X/IMG-20260421-170229-885.jpg" alt="Verify Task" class="task-image">
+            </a>
+            <p style="font-size:12px; color:#777; text-align:center;">Click image to watch how to verify</p>
+        </div>
+
+        <div class="card referral-section">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="margin:0;">Refer & Earn</h3>
+                <span class="reward-badge">NEW</span>
+            </div>
+            <p>Get <b>1,500 PKR</b> for every friend you invite!</p>
+            <p style="font-size:13px; color:#e67e22;"><i>Note: Your friend must complete the "Active Task" above before you receive the reward.</i></p>
+            <button class="btn" style="background:#ff9800; width:100%; border:none; cursor:pointer;" onclick="alert('Link Copied!')">INVITE FRIENDS</button>
+        </div>
+    </div>
+
+    <script>
+        // Splash screen logic
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const splash = document.getElementById('splash');
+                const content = document.getElementById('app-content');
+                
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    content.style.display = 'block';
+                }, 500);
+            }, 3000); // 3 seconds loading time
+        });
+    </script>
+</body>
+</html>
