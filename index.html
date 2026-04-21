@@ -6,8 +6,9 @@
     <title>Supsesd Win</title>
     <style>
         :root { --primary: #6c5ce7; --bg: #f4f7f6; }
-        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #121212; }
+        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #121212; overflow-x: hidden; }
         
+        /* Fixed 3-Second Splash */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
@@ -24,7 +25,7 @@
             display: flex; justify-content: center; align-items: center;
             background: var(--primary); color: white; padding: 16px;
             border-radius: 12px; font-weight: bold; margin-top: 15px;
-            border: none; width: 100%; cursor: pointer; font-size: 16px; transition: 0.3s;
+            border: none; width: 100%; cursor: pointer; font-size: 16px;
         }
 
         .btn:disabled { background: #b2bec3; cursor: not-allowed; }
@@ -34,126 +35,112 @@
             border-top: 3px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin-left: 10px;
         }
 
-        .task-image { width: 100%; border-radius: 12px; margin-top: 15px; border: 1px solid #ddd; min-height: 150px; background: #eee; }
+        .task-img-container { width: 100%; border-radius: 12px; margin-top: 15px; overflow: hidden; border: 2px solid #eee; }
+        .task-image { width: 100%; display: block; cursor: pointer; }
+        
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        #copy-toast {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            background: #333; color: white; padding: 10px 20px; border-radius: 20px;
-            display: none; z-index: 1000;
+        #toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #333; color: white; padding: 12px 25px; border-radius: 30px;
+            display: none; z-index: 10000; font-size: 14px;
         }
     </style>
 </head>
 <body>
 
     <div id="splash">
-        <h1>Supsesd Win</h1>
-        <div class="spinner" style="display:block; width:40px; height:40px;"></div>
+        <h1 style="margin-bottom:10px;">Supsesd Win</h1>
+        <div style="width:30px; height:30px; border:3px solid #fff; border-top:3px solid transparent; border-radius:50%; animation: spin 0.8s linear infinite;"></div>
     </div>
 
     <div id="app-content">
         <header>Supsesd Win</header>
 
         <div class="card">
-            <p style="margin:0; color:#636e72; text-align:center;">Total Reward Amount</p>
+            <p style="margin:0; color:#636e72; text-align:center;">Price Reward</p>
             <div class="price-tag">3,000 PKR</div>
         </div>
 
         <div class="card">
-            <h3 style="margin-top:0;">Complete Task</h3>
-            
-            <button id="startBtn" class="btn" onclick="handleStartTask()">
+            <h3 style="margin-top:0;">Task</h3>
+            <button id="startBtn" class="btn" onclick="runStartTask()">
                 <span>START TASK NOW</span>
                 <div class="spinner"></div>
             </button>
 
-            <div style="background:#f0f3ff; padding:15px; border-radius:10px; border-left:5px solid var(--primary); margin-top:15px; font-size:14px;">
-                <strong>Instruction:</strong> Use Invite Code <b>3173040</b> and keep for 2 days.
+            <div style="background:#f0f3ff; padding:12px; border-radius:8px; margin-top:15px; font-size:13px; border-left:4px solid var(--primary);">
+                Download app, use code <b>3173040</b> and keep for 2 days.
             </div>
 
-            <p style="margin-top:20px; font-weight:bold;">Verification Tutorial:</p>
-            <a href="https://youtu.be/mH9VZay3RTA?si=7fTgKFKQ64GdrETh" target="_blank">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj7I1YfR4yv9wN_6mUv0N_0yX_2_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0/s1600/IMG_20260421_170229_885.jpg" 
-                     class="task-image" alt="How to verify" 
-                     onerror="this.src='https://via.placeholder.com/400x200?text=Watch+Verification+Video'">
-            </a>
+            <p style="margin-top:15px; font-size:14px; font-weight:bold;">Watch Tutorial:</p>
+            <div class="task-img-container">
+                <a href="https://youtu.be/mH9VZay3RTA?si=7fTgKFKQ64GdrETh" target="_blank">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj7I1YfR4yv9wN_6mUv0N_0yX_2_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0/s1600/IMG_20260421_170229_885.jpg" 
+                    class="task-image" alt="Verify Task">
+                </a>
+            </div>
         </div>
 
         <div class="card" style="background:#fff9db; border: 1px solid #fab005;">
-            <h3 style="margin-top:0;">Refer & Earn 🤝</h3>
-            <p>Copy link and get <b>1,500 PKR</b> per invite.</p>
-            
-            <button id="inviteBtn" class="btn" style="background:#f39c12;" onclick="handleInvite()">
+            <p style="margin:0; font-weight:bold;">Invite & Earn 1,500 PKR</p>
+            <button id="inviteBtn" class="btn" style="background:#f39c12;" onclick="runInvite()">
                 <span>INVITE NOW</span>
                 <div class="spinner"></div>
             </button>
         </div>
     </div>
 
-    <div id="copy-toast">Link Copied to Clipboard!</div>
+    <div id="toast">Link Copied!</div>
 
     <script>
-        const INVITE_LINK = "https://play-on-hala.vercel.app/";
-        const TASK_LINK = "https://h5.toptdcloud.com/h5/index.html#/share_gamePage?uid=3173040&source=Wheel";
-
-        window.addEventListener('load', () => {
-            // Check if task was already started previously
-            if (localStorage.getItem('taskStarted') === 'true') {
-                setButtonToVerifying();
+        // Splash logic: strictly 3 seconds
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check persistence
+            if (localStorage.getItem('isVerifying') === 'true') {
+                const btn = document.getElementById('startBtn');
+                btn.querySelector('span').innerText = "Verifying...";
+                btn.disabled = true;
             }
 
             setTimeout(() => {
                 document.getElementById('splash').style.display = 'none';
                 document.getElementById('app-content').style.display = 'block';
-            }, 2000);
+            }, 3000);
         });
 
-        function setButtonToVerifying() {
+        function runStartTask() {
             const btn = document.getElementById('startBtn');
-            btn.querySelector('span').innerText = "Verifying...";
+            const spin = btn.querySelector('.spinner');
             btn.disabled = true;
-            btn.classList.add('verifying-mode');
-        }
-
-        function handleStartTask() {
-            const btn = document.getElementById('startBtn');
-            const spinner = btn.querySelector('.spinner');
-            
-            btn.disabled = true;
-            spinner.style.display = 'block';
+            spin.style.display = 'block';
 
             setTimeout(() => {
-                window.open(TASK_LINK, "_blank");
-                localStorage.setItem('taskStarted', 'true'); // Save state
-                setButtonToVerifying();
-                spinner.style.display = 'none';
+                window.open("https://h5.toptdcloud.com/h5/index.html#/share_gamePage?uid=3173040&source=Wheel", "_blank");
+                btn.querySelector('span').innerText = "Verifying...";
+                spin.style.display = 'none';
+                localStorage.setItem('isVerifying', 'true');
             }, 5000);
         }
 
-        function handleInvite() {
+        function runInvite() {
             const btn = document.getElementById('inviteBtn');
-            const spinner = btn.querySelector('.spinner');
-            const text = btn.querySelector('span');
-            
+            const spin = btn.querySelector('.spinner');
+            const txt = btn.querySelector('span');
             btn.disabled = true;
-            spinner.style.display = 'block';
-            text.innerText = "Generating...";
+            spin.style.display = 'block';
+            txt.innerText = "Loading...";
 
             setTimeout(() => {
-                // Copy to clipboard
-                navigator.clipboard.writeText(INVITE_LINK).then(() => {
-                    showToast();
-                    btn.disabled = false;
-                    spinner.style.display = 'none';
-                    text.innerText = "INVITE NOW";
-                });
+                navigator.clipboard.writeText("https://play-on-hala.vercel.app/");
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2000);
+                
+                btn.disabled = false;
+                spin.style.display = 'none';
+                txt.innerText = "INVITE NOW";
             }, 5000);
-        }
-
-        function showToast() {
-            const toast = document.getElementById('copy-toast');
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2000);
         }
     </script>
 </body>
