@@ -7,21 +7,16 @@
     <style>
         :root {
             --primary: #6c5ce7;
-            --secondary: #00cec9;
-            --bg: #f9f9f9;
-            --text: #2d3436;
+            --bg: #f4f7f6;
         }
 
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #121212;
         }
 
-        /* Splash Loading Screen */
         #splash {
             position: fixed;
             top: 0;
@@ -35,29 +30,14 @@
             align-items: center;
             z-index: 9999;
             color: white;
-            transition: opacity 0.5s ease;
         }
 
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #fff;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin-top: 20px;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Main Content */
         #app-content {
             display: none;
-            max-width: 500px;
+            max-width: 480px;
             margin: 0 auto;
-            background: white;
+            background: var(--bg);
             min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
 
         header {
@@ -65,7 +45,7 @@
             color: white;
             padding: 20px;
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
         }
 
@@ -74,128 +54,156 @@
             padding: 20px;
             border-radius: 15px;
             background: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .price-tag {
-            font-size: 28px;
+            font-size: 32px;
             color: #27ae60;
             font-weight: 800;
             text-align: center;
+            margin: 10px 0;
         }
 
         .btn {
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background: var(--primary);
             color: white;
             text-decoration: none;
-            padding: 15px;
-            text-align: center;
-            border-radius: 10px;
+            padding: 16px;
+            border-radius: 12px;
             font-weight: bold;
             margin-top: 15px;
-            transition: transform 0.2s;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            transition: 0.3s;
         }
 
-        .btn:active { transform: scale(0.98); }
+        .btn:disabled {
+            background: #b2bec3;
+            cursor: not-allowed;
+        }
+
+        /* Spinner inside button */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
 
         .instruction-box {
             background: #f0f3ff;
             padding: 15px;
             border-radius: 10px;
             border-left: 5px solid var(--primary);
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 14px;
         }
 
         .task-image {
             width: 100%;
-            border-radius: 10px;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: opacity 0.3s;
+            border-radius: 12px;
+            margin-top: 15px;
+            display: block;
         }
 
-        .task-image:hover { opacity: 0.9; }
-
-        .referral-section {
-            background: #fff3e0;
-            border: 1px dashed #ff9800;
-        }
-
-        .reward-badge {
-            background: #ff9800;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <div id="splash">
         <h1>Supsesd Win</h1>
-        <p>Loading your rewards...</p>
-        <div class="loader"></div>
+        <div class="spinner" style="display:block; width:40px; height:40px;"></div>
     </div>
 
     <div id="app-content">
         <header>Supsesd Win</header>
 
         <div class="card">
-            <p style="margin:0; color:#666;">Available Reward Price</p>
+            <p style="margin:0; color:#636e72; text-align:center;">Total Reward Amount</p>
             <div class="price-tag">3,000 PKR</div>
         </div>
 
         <div class="card">
-            <h3 style="margin-top:0;">Active Task</h3>
-            <p>Complete the task below to unlock your rewards.</p>
+            <h3 style="margin-top:0;">Complete Task</h3>
             
-            <a href="https://h5.toptdcloud.com/h5/index.html#/share_gamePage?uid=3173040&source=Wheel" class="btn" target="_blank">
-                START TASK NOW
-            </a>
+            <button id="startBtn" class="btn" onclick="handleAction('startBtn', 'https://h5.toptdcloud.com/h5/index.html#/share_gamePage?uid=3173040&source=Wheel', 'Verifying...')">
+                <span>START TASK NOW</span>
+                <div class="spinner"></div>
+            </button>
 
             <div class="instruction-box">
-                <strong>Instructions:</strong><br>
-                1. Download the app via the link above.<br>
-                2. Use Invite Code: <b>3173040</b><br>
-                3. Use the app for at least 2 days to get your reward.
+                <strong>How to complete:</strong><br>
+                1. Click button and wait for verification.<br>
+                2. Use Invite Code: <b style="color:#d63031;">3173040</b><br>
+                3. Keep for 2 days to get 3,000 PKR.
             </div>
 
-            <p style="margin-top:20px; font-weight:bold;">Verification Guide:</p>
+            <p style="margin-top:20px; font-weight:bold;">Verification Tutorial:</p>
             <a href="https://youtu.be/mH9VZay3RTA?si=7fTgKFKQ64GdrETh" target="_blank">
-                <img src="https://i.ibb.co/Vp8nS8X/IMG-20260421-170229-885.jpg" alt="Verify Task" class="task-image">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj7I1YfR4yv9wN_6mUv0N_0yX_2_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0/s1600/IMG_20260421_170229_885.jpg" 
+                     class="task-image" alt="Verification Guide">
             </a>
-            <p style="font-size:12px; color:#777; text-align:center;">Click image to watch how to verify</p>
         </div>
 
-        <div class="card referral-section">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3 style="margin:0;">Refer & Earn</h3>
-                <span class="reward-badge">NEW</span>
-            </div>
-            <p>Get <b>1,500 PKR</b> for every friend you invite!</p>
-            <p style="font-size:13px; color:#e67e22;"><i>Note: Your friend must complete the "Active Task" above before you receive the reward.</i></p>
-            <button class="btn" style="background:#ff9800; width:100%; border:none; cursor:pointer;" onclick="alert('Link Copied!')">INVITE FRIENDS</button>
+        <div class="card" style="background:#fff9db; border: 1px solid #fab005;">
+            <h3 style="margin-top:0;">Refer & Earn 🤝</h3>
+            <p>Get <b>1,500 PKR</b> for every successful invite.</p>
+            
+            <button id="inviteBtn" class="btn" style="background:#f39c12;" onclick="handleAction('inviteBtn', 'https://play-on-hala.vercel.app/', 'Loading...')">
+                <span>INVITE NOW</span>
+                <div class="spinner"></div>
+            </button>
         </div>
     </div>
 
     <script>
-        // Splash screen logic
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const splash = document.getElementById('splash');
-                const content = document.getElementById('app-content');
-                
-                splash.style.opacity = '0';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                    content.style.display = 'block';
-                }, 500);
-            }, 3000); // 3 seconds loading time
+        // Splash screen timer
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('app-content').style.display = 'block';
+            }, 2000);
         });
+
+        // Common handler for both buttons
+        function handleAction(btnId, url, loadingText) {
+            const btn = document.getElementById(btnId);
+            const textSpan = btn.querySelector('span');
+            const spinner = btn.querySelector('.spinner');
+            const originalText = textSpan.innerText;
+
+            // Start Loading State
+            btn.disabled = true;
+            textSpan.innerText = loadingText;
+            spinner.style.display = 'block';
+
+            // Wait 5 seconds then open link
+            setTimeout(() => {
+                window.open(url, "_blank");
+                
+                // If it's the start button, keep it as "Verifying"
+                // If it's the invite button, reset it after 1 second
+                if (btnId === 'inviteBtn') {
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        textSpan.innerText = originalText;
+                        spinner.style.display = 'none';
+                    }, 1000);
+                }
+            }, 5000);
+        }
     </script>
 </body>
 </html>
